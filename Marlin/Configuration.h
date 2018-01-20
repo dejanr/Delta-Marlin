@@ -87,7 +87,7 @@
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-#define CUSTOM_MACHINE_NAME "Kossel Pro"
+#define CUSTOM_MACHINE_NAME "DELTA"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -302,7 +302,7 @@
 
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
-#define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
+#define BANG_MAX 200     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX  255     // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 #if ENABLED(PIDTEMP)
@@ -314,9 +314,9 @@
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
   #define PID_FUNCTIONAL_RANGE 50 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
-  #define  DEFAULT_Kp 11.52
-  #define  DEFAULT_Ki 0.76
-  #define  DEFAULT_Kd 43.75
+  #define  DEFAULT_Kp 19.16
+  #define  DEFAULT_Ki 1.43
+  #define  DEFAULT_Kd 64.00
 
 #endif // PIDTEMP
 
@@ -332,25 +332,24 @@
 // If your configuration is significantly different than this and you don't understand the issues involved, you probably
 // shouldn't use bed PID until someone else verifies your hardware works.
 // If this is enabled, find your own PID constants below.
-#define PIDTEMPBED
+//#define PIDTEMPBED
 
-//#define BED_LIMIT_SWITCHING
+#define BED_LIMIT_SWITCHING
 
 // This sets the max power delivered to the bed, and replaces the HEATER_BED_DUTY_CYCLE_DIVIDER option.
 // all forms of bed control obey this (PID, bang-bang, bang-bang with hysteresis)
 // setting this to anything other than 255 enables a form of PWM to the bed just like HEATER_BED_DUTY_CYCLE_DIVIDER did,
 // so you shouldn't use it unless you are OK with PWM on your bed.  (see the comment on enabling PIDTEMPBED)
-#define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 200 // limits duty cycle to bed; 255=full current
 
 #if ENABLED(PIDTEMPBED)
 
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
 
-  //Kossel Pro heated bed plate with borosilicate glass
   //from pidautotune (M303 E-1 S60 C8)
-  #define  DEFAULT_bedKp 203.75
-  #define  DEFAULT_bedKi 39.80
-  #define  DEFAULT_bedKd 260.80
+  #define  DEFAULT_bedKp 552.51
+  #define  DEFAULT_bedKi 125.51
+  #define  DEFAULT_bedKd 910.70
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -435,35 +434,35 @@
     #define DELTA_CALIBRATION_DEFAULT_POINTS 4
 
     // Enable and set these values based on results of 'G33 A'
-    //#define H_FACTOR 1.01
-    //#define R_FACTOR 2.61
-    //#define A_FACTOR 0.87
+    #define H_FACTOR 1.09
+    #define R_FACTOR 3.23
+    #define A_FACTOR 0.59
 
   #endif
 
 
-  #define DELTA_CALIBRATION_RADIUS 60.0 // mm
+  #define DELTA_CALIBRATION_RADIUS 110.0 // mm
     // Set the steprate for papertest probing
   #define PROBE_MANUALLY_STEP 0.025
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-  #define DELTA_PRINTABLE_RADIUS 80.0 // mm
+  #define DELTA_PRINTABLE_RADIUS 120.0 // mm
 
   // Center-to-center distance of the holes in the diagonal push rods.
   #define DELTA_DIAGONAL_ROD 336.0 // mm
 
   // height from z=0 to home position
-  #define DELTA_HEIGHT 230.000 // get this value from auto calibrate
+  #define DELTA_HEIGHT 231.4 // get this value from auto calibrate
 
-  #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // get these from auto calibrate
+  #define DELTA_ENDSTOP_ADJ { -0.46, 0.00, -1.44 } // get these from auto calibrate
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
-  #define DELTA_RADIUS 203.432 //mm  Get this value from auto calibrate
+  #define DELTA_RADIUS 202.85 //mm  Get this value from auto calibrate
 
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
   // measured in degrees anticlockwise looking from above the printer
-  #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } // get these values from auto calibrate
+  #define DELTA_TOWER_ANGLE_TRIM { -0.18, -0.14, 0.32 } // get these values from auto calibrate
 
   // delta radius and diaginal rod adjustments measured in mm
   //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
@@ -701,12 +700,8 @@
  *      O-- FRONT --+
  *    (0,0)
  */
-#define X_PROBE_OFFSET_FROM_EXTRUDER 40 // KosselPro actual: -22.919
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -20  // KosselPro actual: -6.304
-/**
- * Kossel Pro note: The correct value is likely -17.45 but I'd rather err on the side of
- * not giving someone a head crash. Use something like G29 Z-0.2 to adjust as needed.
- */
+#define X_PROBE_OFFSET_FROM_EXTRUDER 0
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 0
 #define Z_PROBE_OFFSET_FROM_EXTRUDER 5  // Increase this if the first layer is too thin (remember: it's a negative number so increase means closer to zero).
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 3000
@@ -732,7 +727,6 @@
   // 2 or 3 sets of coordinates for deploying and retracting the spring loaded touch probe on G29,
   // if servo actuated touch probe is not defined. Uncomment as appropriate for your printer/probe.
 
-  // Kossel Pro
   #define Z_PROBE_ALLEN_KEY_DEPLOY_1_X -105.00 // Move left but not quite so far that we'll bump the belt
   #define Z_PROBE_ALLEN_KEY_DEPLOY_1_Y 0.00
   #define Z_PROBE_ALLEN_KEY_DEPLOY_1_Z 100.0
@@ -972,7 +966,7 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  //#define G26_MESH_VALIDATION
+  #define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for the G26 Mesh Validation Tool.
@@ -989,7 +983,7 @@
 
   // Set the number of grid points per dimension.
   // Works best with 5 or more points in each dimension.
-  #define GRID_MAX_POINTS_X 7
+  #define GRID_MAX_POINTS_X 9
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define LEFT_PROBE_BED_POSITION -(DELTA_PROBEABLE_RADIUS)
@@ -1224,8 +1218,8 @@
 // @section temperature
 
 // Preheat Constants
-#define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     50
+#define PREHEAT_1_TEMP_HOTEND 210
+#define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_FAN_SPEED   255 // Value from 0 to 255
 
 #define PREHEAT_2_TEMP_HOTEND 220
