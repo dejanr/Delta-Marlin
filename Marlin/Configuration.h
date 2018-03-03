@@ -254,7 +254,7 @@
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
-#define TEMP_SENSOR_BED 5
+#define TEMP_SENSOR_BED 12
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
 #define DUMMY_THERMISTOR_998_VALUE 25
@@ -293,7 +293,7 @@
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
 #define HEATER_4_MAXTEMP 275
-#define BED_MAXTEMP 130
+#define BED_MAXTEMP 110
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -302,7 +302,7 @@
 
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
-#define BANG_MAX 200     // Limits current to nozzle while in bang-bang mode; 255=full current
+#define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX  255     // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 #if ENABLED(PIDTEMP)
@@ -314,9 +314,9 @@
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
   #define PID_FUNCTIONAL_RANGE 50 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
-  #define  DEFAULT_Kp 19.16
-  #define  DEFAULT_Ki 1.43
-  #define  DEFAULT_Kd 64.00
+  #define  DEFAULT_Kp 22.60
+  #define  DEFAULT_Ki 2.05
+  #define  DEFAULT_Kd 62.38
 
 #endif // PIDTEMP
 
@@ -334,22 +334,22 @@
 // If this is enabled, find your own PID constants below.
 //#define PIDTEMPBED
 
-#define BED_LIMIT_SWITCHING
+//#define BED_LIMIT_SWITCHING
 
 // This sets the max power delivered to the bed, and replaces the HEATER_BED_DUTY_CYCLE_DIVIDER option.
 // all forms of bed control obey this (PID, bang-bang, bang-bang with hysteresis)
 // setting this to anything other than 255 enables a form of PWM to the bed just like HEATER_BED_DUTY_CYCLE_DIVIDER did,
 // so you shouldn't use it unless you are OK with PWM on your bed.  (see the comment on enabling PIDTEMPBED)
-#define MAX_BED_POWER 200 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
 
 #if ENABLED(PIDTEMPBED)
 
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
 
-  //from pidautotune (M303 E-1 S60 C8)
-  #define  DEFAULT_bedKp 552.51
-  #define  DEFAULT_bedKi 125.51
-  #define  DEFAULT_bedKd 910.70
+  // FIND YOUR OWN: "M303 E-1 C8 S80" to run autotune on the bed at 90 degreesC for 8 cycles.
+  #define  DEFAULT_bedKp 511.66
+  #define  DEFAULT_bedKi 99.93
+  #define  DEFAULT_bedKd 654.93
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -441,7 +441,7 @@
   #endif
 
 
-  #define DELTA_CALIBRATION_RADIUS 110.0 // mm
+  #define DELTA_CALIBRATION_RADIUS DELTA_PROBEABLE_RADIUS
     // Set the steprate for papertest probing
   #define PROBE_MANUALLY_STEP 0.025
 
@@ -452,17 +452,17 @@
   #define DELTA_DIAGONAL_ROD 336.0 // mm
 
   // height from z=0 to home position
-  #define DELTA_HEIGHT 223.9 // get this value from auto calibrate
+  #define DELTA_HEIGHT 223.5 // get this value from auto calibrate
 
-  #define DELTA_ENDSTOP_ADJ { -0.46, 0.00, -1.44 } // get these from auto calibrate
+  #define DELTA_ENDSTOP_ADJ { 0.00, -0.57, -0.75 } // get these from auto calibrate
 
   // Horizontal distance bridged by diagonal push rods when effector is centered.
-  #define DELTA_RADIUS 202.85 //mm  Get this value from auto calibrate
+  #define DELTA_RADIUS 203.14 //mm  Get this value from auto calibrate
 
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
   // measured in degrees anticlockwise looking from above the printer
-  #define DELTA_TOWER_ANGLE_TRIM { -0.18, -0.14, 0.32 } // get these values from auto calibrate
+  #define DELTA_TOWER_ANGLE_TRIM { 0.03, -0.21, 0.18 } // get these values from auto calibrate
 
   // delta radius and diaginal rod adjustments measured in mm
   //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
@@ -975,7 +975,7 @@
   #endif
 
   // Set the boundaries for probing (where the probe can reach).
-  #define DELTA_PROBEABLE_RADIUS (DELTA_PRINTABLE_RADIUS - 10)
+  #define DELTA_PROBEABLE_RADIUS (DELTA_PRINTABLE_RADIUS - 30)
 
 #endif
 
