@@ -446,7 +446,7 @@
   #define PROBE_MANUALLY_STEP 0.025
 
   // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-  #define DELTA_PRINTABLE_RADIUS 120.0 // mm
+  #define DELTA_PRINTABLE_RADIUS 130.0 // mm
 
   // Center-to-center distance of the holes in the diagonal push rods.
   #define DELTA_DIAGONAL_ROD 336.0 // mm
@@ -975,7 +975,7 @@
   #endif
 
   // Set the boundaries for probing (where the probe can reach).
-  #define DELTA_PROBEABLE_RADIUS (DELTA_PRINTABLE_RADIUS - 30)
+  #define DELTA_PROBEABLE_RADIUS (DELTA_PRINTABLE_RADIUS - 40)
 
 #endif
 
